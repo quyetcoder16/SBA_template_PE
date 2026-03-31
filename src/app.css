@@ -1,0 +1,43 @@
+/* App.css */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.logo-section {
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.date-section {
+  font-size: 16px;
+}
+
+.footer {
+  border-top: 1px solid #ccc;
+  padding-top: 10px;
+  margin-top: 20px;
+  text-align: left;
+  font-size: 14px;
+}
+
+.shoes-table th {
+  background-color: #e9ecef !important;
+}
+
+.filter-section {
+  margin-bottom: 20px;
+  padding: 15px;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+}
