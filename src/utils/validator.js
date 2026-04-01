@@ -4,9 +4,17 @@ export const Validator = {
         return value !== null && value !== undefined && value.toString().trim().length > 0;
     },
 
-    // 2. Kiểm tra độ dài chuỗi
-    minLength: (value, min) => value.trim().length >= min,
-    maxLength: (value, max) => value.trim().length <= max,
+    minLength: (value, min) => {
+        if (value === null || value === undefined) return false;
+        const str = String(value).trim();
+        return str.length >= min;
+    },
+    maxLength: (value, max) => {
+        if (value === null || value === undefined) return false;
+        const str = String(value).trim();
+        // console.log(`Value: ${str}, Length: ${str.length}`);
+        return str.length <= max;
+    },
 
     // 3. Kiểm tra Email chuẩn RFC 5322
     isEmail: (value) => {

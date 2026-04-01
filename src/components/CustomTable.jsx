@@ -25,6 +25,8 @@ const CustomTable = ({ data, startIndex, onDelete }) => (
                         <Button variant="link" className="p-0 text-danger" onClick={() => onDelete(item)}>Delete</Button>
                         {' | '}
                         <Link to={`/view/${item.shoesId}`}>View</Link>
+                        {' | '}
+                        <Link to={`/update/${item.shoesId}`}>Update</Link>
                     </td>
                 </tr>
             ))}

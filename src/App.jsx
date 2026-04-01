@@ -4,6 +4,7 @@ import "./app.css"
 import ListPage from './pages/ListPage';
 import PageDetail from './pages/PageDetail';
 import AddPage from './pages/AddPage';
+import UpdatePage from './pages/UpdatePage';
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
             <Route path="/" element={<ListPage />} />
             <Route path="/add" element={<AddPage />} />
             <Route path="/view/:id" element={<PageDetail />} />
+            <Route path="/update/:id" element={<UpdatePage />} />
           </Routes>
         </main>
       </BrowserRouter>

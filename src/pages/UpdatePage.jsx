@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { Form, Button, Row, Col, Alert } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
-import { createShoes, getCategories, getShoes } from '../service/api';
+import React, { useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom';
+import { getCategories, getShoes, getShoesById, updateShoes } from '../service/api';
 import { Validator } from '../utils/validator';
+import { Form, Button, Row, Col, Alert } from 'react-bootstrap';
 
-
-const AddPage = () => {
+export default function UpdatePage() {
+    const { id } = useParams();
     const navigate = useNavigate();
     const [categories, setCategories] = useState([]);
     const [formData, setFormData] = useState({
@@ -16,21 +16,55 @@ const AddPage = () => {
         importDate: '',
         categoryId: ''
     });
+
     const [errors, setErrors] = useState({});
     const [serverError, setServerError] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
 
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({
+            ...prev,
+            [name]: value
+        }));
+    };
+
+    const formatDate = (dateString) => {
+        if (!dateString) return "";
+        const date = new Date(dateString);
+
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // Tháng trong JS chạy từ 0-11
+        const year = date.getFullYear();
+
+        return `${day}/${month}/${year}`;
+    };
+
     useEffect(() => {
-        const fetchCategories = async () => {
+
+        const fetchShoes = async () => {
             try {
-                const res = await getCategories();
-                setCategories(res.data);
+                const resCate = await getCategories();
+                const listCategories = resCate.data;
+                setCategories(listCategories);
+
+                const res = await getShoesById(id);
+                const matchedCategory = listCategories.find(
+                    cat => cat.categoryName === res.data.categoryName
+                );
+                setFormData({
+                    ...res.data,
+                    name: res.data.shoesName,
+                    categoryId: matchedCategory ? matchedCategory.id : '',
+                    productionDate: formatDate(res.data.productionDate),
+                    importDate: formatDate(res.data.importDate)
+                });
             } catch (error) {
-                console.error('Error fetching categories:', error);
+                console.error('Error fetching shoes detail:', error);
             }
         };
-        fetchCategories();
-    }, []);
+        fetchShoes();
+    }, [id])
 
 
 
@@ -46,6 +80,7 @@ const AddPage = () => {
             const existingShoes = res.data.content || [];
             const isDuplicate = existingShoes.some(
                 item => item.shoesName.toLowerCase() === formData.name.toLowerCase()
+                    && String(item.shoesId) !== String(id)
             );
             if (isDuplicate) newErrors.name = 'Shoes name already exists';
         }
@@ -80,6 +115,7 @@ const AddPage = () => {
         e.preventDefault();
         setServerError('');
         const isValid = await validate();
+        console.log(errors);
         if (!isValid) return;
 
         try {
@@ -93,8 +129,8 @@ const AddPage = () => {
                 categoryId: parseInt(formData.categoryId)
             };
 
-            await createShoes(dataToSubmit);
-            setSuccessMessage('Created new shoes successfully');
+            await updateShoes(id, dataToSubmit);
+            setSuccessMessage('Updated shoes successfully');
             setTimeout(() => {
                 navigate('/');
             }, 1000);
@@ -102,22 +138,17 @@ const AddPage = () => {
             if (error.response?.data?.message) {
                 setServerError(error.response.data.message);
             } else {
-                setServerError('Failed to create new shoes or duplicate name');
+                setServerError('Failed to update shoes');
             }
         }
     };
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData(prev => ({
-            ...prev,
-            [name]: value
-        }));
-    };
+
+    if (!formData) return <div className="text-center mt-5">Shoes not found</div>;
 
     return (
         <div className="container my-5">
-            <h3>Add New Shoes</h3>
+            <h3>Update Shoes</h3>
             {serverError && <Alert variant="danger">{serverError}</Alert>}
             {successMessage && <Alert variant="success">{successMessage}</Alert>}
 
@@ -217,7 +248,5 @@ const AddPage = () => {
                 </Row>
             </Form>
         </div>
-    );
-};
-
-export default AddPage;
+    )
+}
