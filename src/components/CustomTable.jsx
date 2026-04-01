@@ -22,7 +22,7 @@ const CustomTable = ({ data, startIndex, onDelete }) => (
                     <td>{item.manufacturer}</td>
                     <td>{new Intl.NumberFormat('vi-VN').format(item.price)}</td>
                     <td>
-                        <Button variant="link" className="p-0" onClick={() => onDelete(item)}>Delete</Button>
+                        <Button variant="link" className="p-0 text-danger" onClick={() => onDelete(item)}>Delete</Button>
                         {' | '}
                         <Link to={`/view/${item.shoesId}`}>View</Link>
                     </td>

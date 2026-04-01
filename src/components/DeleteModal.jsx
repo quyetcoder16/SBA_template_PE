@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 
-const DeleteModal = ({ show, target, onHide, onConfirm, isProcessing }) => {
+const DeleteModal = ({ show, target, onHide, onConfirm }) => {
     return (
         <Modal show={show} onHide={onHide} centered>
             <Modal.Header closeButton>
@@ -13,10 +13,10 @@ const DeleteModal = ({ show, target, onHide, onConfirm, isProcessing }) => {
 
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="danger" onClick={onConfirm} disabled={isProcessing}>
-                    {isProcessing ? 'Deleting...' : 'Yes'}
+                <Button variant="danger" onClick={onConfirm}>
+                    Yes
                 </Button>
-                <Button variant="outline-secondary" onClick={onHide} disabled={isProcessing}>
+                <Button variant="outline-secondary" onClick={onHide}>
                     Close
                 </Button>
             </Modal.Footer>

@@ -27,7 +27,6 @@ export default function ListPage() {
     });
 
     const [deleteTarget, setDeleteTarget] = useState(null);
-    const [isProcessing, setIsProcessing] = useState(false);
     const [alert, setAlert] = useState({ show: false, message: '', type: '' });
 
     // Fetch Categories (chỉ chạy 1 lần)
@@ -80,7 +79,6 @@ export default function ListPage() {
     };
 
     const confirmDelete = async () => {
-        setIsProcessing(true);
         try {
             await deleteShoes(deleteTarget.shoesId);
             setAlert({ show: true, message: 'Delete successful!', type: 'success' });
@@ -95,7 +93,6 @@ export default function ListPage() {
         } catch (err) {
             setAlert({ show: true, message: 'An error occurred while deleting!', type: 'danger' });
         } finally {
-            setIsProcessing(false);
             setTimeout(() => setAlert({ ...alert, show: false }), 2000);
         }
     };
@@ -171,7 +168,6 @@ export default function ListPage() {
                 target={deleteTarget}
                 onHide={() => setDeleteTarget(null)}
                 onConfirm={confirmDelete}
-                isProcessing={isProcessing}
             />
 
         </div>
