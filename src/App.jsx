@@ -2,6 +2,8 @@
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import "./app.css"
 import ListPage from './pages/ListPage';
+import PageDetail from './pages/PageDetail';
+import AddPage from './pages/AddPage';
 
 function App() {
 
@@ -22,8 +24,8 @@ function App() {
         <main>
           <Routes>
             <Route path="/" element={<ListPage />} />
-            <Route path="/add" element={<>djd</>} />
-            <Route path="/view/:id" element={<>dd</>} />
+            <Route path="/add" element={<AddPage />} />
+            <Route path="/view/:id" element={<PageDetail />} />
           </Routes>
         </main>
       </BrowserRouter>

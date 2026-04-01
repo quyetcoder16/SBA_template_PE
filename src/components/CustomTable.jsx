@@ -3,14 +3,14 @@ import { Link } from 'react-router-dom';
 
 const CustomTable = ({ data, startIndex, onDelete }) => (
     <Table bordered hover responsive>
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Shoes Name</th>
-                <th>Category</th>
-                <th>Manufacturer</th>
-                <th>Price (đ)</th>
-                <th>Action</th>
+        <thead >
+            <tr style={{ backgroundColor: '#ddebf7', color: 'black' }}>
+                <th style={{ backgroundColor: 'inherit', color: 'inherit' }}>#</th>
+                <th style={{ backgroundColor: 'inherit', color: 'inherit' }}>Shoes Name</th>
+                <th style={{ backgroundColor: 'inherit', color: 'inherit' }}>Category</th>
+                <th style={{ backgroundColor: 'inherit', color: 'inherit' }}>Manufacturer</th>
+                <th style={{ backgroundColor: 'inherit', color: 'inherit' }}>Price (đ)</th>
+                <th style={{ backgroundColor: 'inherit', color: 'inherit' }}>Action</th>
             </tr>
         </thead>
         <tbody>

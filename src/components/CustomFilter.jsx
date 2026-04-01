@@ -1,7 +1,10 @@
 import { Form, Row, Col, Button } from 'react-bootstrap';
 
 const CustomFilter = ({ categories, filters, onFilterChange, onSearch, onAdd }) => (
-    <Form onSubmit={(e) => { e.preventDefault(); onSearch(); }} className="my-4">
+    <Form onSubmit={(e) => {
+        e.preventDefault();
+        onSearch();
+    }} className="my-4">
         <Row className="align-items-center mb-3">
             <Col md={2}>Category:</Col>
             <Col md={4}>
