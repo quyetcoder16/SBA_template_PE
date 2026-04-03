@@ -73,5 +73,71 @@ export const Validator = {
         if (!dateStr) return null;
         const [day, month, year] = dateStr.split('/');
         return `${year}-${month}-${day}`;
+    },
+
+    // 11. Kiểm tra là số nguyên (Integer) - Chấp nhận cả số âm
+    isInteger: (value) => {
+        if (value === '' || value === null) return false;
+        return Number.isInteger(Number(value));
+    },
+
+    // 12. Kiểm tra là số thực (Float/Decimal)
+    isFloat: (value) => {
+        if (value === '' || value === null) return false;
+        const num = Number(value);
+        return !isNaN(num) && !Number.isInteger(num);
+    },
+
+    // 13. Kiểm tra là số nói chung (Cả nguyên và thực)
+    isNumeric: (value) => {
+        if (value === '' || value === null) return false;
+        return !isNaN(parseFloat(value)) && isFinite(value);
+    },
+
+    // 14. Kiểm tra không chứa ký tự đặc biệt (Chỉ cho phép chữ và số)
+    isAlphanumeric: (value) => {
+        const regex = /^[a-zA-Z0-9\sÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵýỷỹ]+$/;
+        return regex.test(value);
+    },
+
+    // 15. Kiểm tra giá trị tối thiểu (Dành cho số)
+    min: (value, minVal) => {
+        return parseFloat(value) >= minVal;
+    },
+
+    // 16. Kiểm tra giá trị tối đa (Dành cho số)
+    max: (value, maxVal) => {
+        return parseFloat(value) <= maxVal;
+    },
+
+    // 17. Kiểm tra trùng khớp (Dùng cho Confirm Password)
+    isMatch: (value, targetValue) => {
+        return value === targetValue;
+    },
+
+    // 18. Kiểm tra chỉ chứa chữ cái (Không chứa số)
+    isAlpha: (value) => {
+        const regex = /^[a-zA-Z\sÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵýỷỹ]+$/;
+        return regex.test(value);
+    },
+
+    // 19. Kiểm tra ngày không được vượt quá ngày hiện tại (Dùng cho Birthday)
+    isNotFutureDate: (dateStr) => {
+        if (!Validator.isDateFormat(dateStr)) return false;
+        const [day, month, year] = dateStr.split('/').map(Number);
+        const inputDate = new Date(year, month - 1, day);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0); // Chỉ so sánh ngày
+        return inputDate <= today;
+    },
+
+    // 20. Kiểm tra ngày phải lớn hơn ngày hiện tại (Dùng cho ngày hết hạn/Deadline)
+    isFutureDate: (dateStr) => {
+        if (!Validator.isDateFormat(dateStr)) return false;
+        const [day, month, year] = dateStr.split('/').map(Number);
+        const inputDate = new Date(year, month - 1, day);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        return inputDate > today;
     }
 };

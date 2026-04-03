@@ -5,6 +5,7 @@ import ListPage from './pages/ListPage';
 import PageDetail from './pages/PageDetail';
 import AddPage from './pages/AddPage';
 import UpdatePage from './pages/UpdatePage';
+import ComprehensiveForm from './pages/ComprehensiveForm';
 
 function App() {
 
@@ -28,6 +29,7 @@ function App() {
             <Route path="/add" element={<AddPage />} />
             <Route path="/view/:id" element={<PageDetail />} />
             <Route path="/update/:id" element={<UpdatePage />} />
+            <Route path='/test' element={<ComprehensiveForm />} />
           </Routes>
         </main>
       </BrowserRouter>
